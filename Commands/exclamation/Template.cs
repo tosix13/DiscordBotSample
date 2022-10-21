@@ -4,15 +4,17 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiscordBot.NetCore.Commands
+namespace DiscordBot.NetCore.Commands.exclamation
 {
-    public class TemplateCmd : ModuleBase
+    [Group("tox")]
+    public class TemplateCmd : ModuleBase<SocketCommandContext>
     {
-        private Logger _logger { get; } = Logger.GetLogger(typeof(ModuleBase));
+        private Logger _logger { get; } = Logger.GetLogger(typeof(TemplateCmd));
 
         [Command("template")]
+        [Summary("return none")]
         [RequireContext(ContextType.DM | ContextType.Guild, ErrorMessage = "(DM | Guild) Usage: !template [arg1]")]
-        public async Task Template(params string[] iArgs)
+        public async Task CommandAction(params string[] iArgs)
         {
             await Task.CompletedTask;
         }

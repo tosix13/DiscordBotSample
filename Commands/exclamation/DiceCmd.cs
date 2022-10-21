@@ -6,9 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiscordBot.NetCore.Commands
+namespace DiscordBot.NetCore.Commands.exclamation
 {
-    public class DiceCmd : ModuleBase
+    [Group("tox")]
+    public class DiceCmd : ModuleBase<SocketCommandContext>
     {
         /// <summary>
         /// サイコロを振ります
@@ -17,8 +18,9 @@ namespace DiscordBot.NetCore.Commands
         /// <param name="throwCount">ダイスを振る回数</param>
         /// <returns></returns>
         [Command("dice")]
+        [Summary("dice roll")]
         [RequireContext(ContextType.DM | ContextType.Guild, ErrorMessage = "(DM | Guild) Usage: !dice [face] [throwCount]\n  face: 1以上 (Default 6)\n  throwCount: 1以上 (Default 10)")]
-        public async Task Dice(byte face = 6, byte throwCount = 10)
+        public async Task CommandAction(byte face = 6, byte throwCount = 10)
         {
             if (face < 1 || throwCount < 1)
             {

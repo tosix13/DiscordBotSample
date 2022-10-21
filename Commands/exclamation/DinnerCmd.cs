@@ -6,7 +6,7 @@ using System.Net.Http.Json;
 using System.Collections.Generic;
 using System.Text.Json;
 
-namespace DiscordBot.NetCore.Commands
+namespace DiscordBot.NetCore.Commands.exclamation
 {
     public class Recipe
     {
@@ -32,15 +32,17 @@ namespace DiscordBot.NetCore.Commands
         public List<Recipe> result { get; set; }
     }
 
-    public class DinnerCmd : ModuleBase
+    [Group("tox")]
+    public class DinnerCmd : ModuleBase<SocketCommandContext>
     {
         private string RAKUTEN_API_PATH = $"https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?format=json&applicationId={EntryPoint._config.rakuten_applicationID}";
 
         private Logger _logger { get; } = Logger.GetLogger(typeof(ModuleBase));
 
         [Command("dinner")]
+        [Summary("show recipe ranking")]
         [RequireContext(ContextType.DM | ContextType.Guild, ErrorMessage = "(DM | Guild) Usage: !dinner")]
-        public async Task Dinner(params string[] iArgs)
+        public async Task CommandAction(params string[] iArgs)
         {
             HttpClient client = new HttpClient();
             var response = await client.GetFromJsonAsync<Response>(RAKUTEN_API_PATH);

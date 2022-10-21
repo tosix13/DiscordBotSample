@@ -3,21 +3,17 @@ using Discord.Commands;
 using System;
 using System.Threading.Tasks;
 
-namespace DiscordBot.NetCore.Commands
+namespace DiscordBot.NetCore.Commands.exclamation
 {
-    public class CreateChannelCmd : ModuleBase
+    [Group("tox")]
+    public class CreateChannelCmd : ModuleBase<SocketCommandContext>
     {
         private Logger _logger { get; } = Logger.GetLogger(typeof(ModuleBase));
-        private readonly AudioService _service;
-
-        public CreateChannelCmd(AudioService service)
-        {
-            _service = service;
-        }
 
         [Command("createchannel")]
+        [Summary("create voice chat and text")]
         [RequireContext(ContextType.Guild, ErrorMessage = "(Guild) Usage: !createchannel [title] [isCreateTextChannel true|false]")]
-        public async Task CreateChannel(string title, string isCreateTextChannel = "true")
+        public async Task CommandAction(string title, string isCreateTextChannel = "true")
         {
             if (string.IsNullOrEmpty(title))
             {
@@ -41,8 +37,6 @@ namespace DiscordBot.NetCore.Commands
             {
                 var newTextChannel = await Context.Guild.CreateTextChannelAsync($"{title}_聞き専");
                 await newTextChannel.AddPermissionOverwriteAsync(Context.Guild.EveryoneRole, OverwritePermissions.AllowAll(newVoiceChannel));
-
-                // var audioClient = await newVoiceChannel.ConnectAsync();
             }
             await Task.CompletedTask;
         }

@@ -4,13 +4,15 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiscordBot.NetCore.Commands
+namespace DiscordBot.NetCore.Commands.exclamation
 {
-    public class QuestionCmd : ModuleBase
+    [Group("tox")]
+    public class VoteCmd : ModuleBase<SocketCommandContext>
     {
-        [Command("question")]
-        [RequireContext(ContextType.DM | ContextType.Guild, ErrorMessage = "(DM | Guild) Usage: !question [title] [items..]")]
-        public async Task Question(params string[] iArgs)
+        [Command("vote")]
+        [Summary("create vote list")]
+        [RequireContext(ContextType.DM | ContextType.Guild, ErrorMessage = "(DM | Guild) Usage: !vote [title] [items..]")]
+        public async Task CommandAction(params string[] iArgs)
         {
             if (iArgs.Length < 2)
             {

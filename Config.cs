@@ -1,11 +1,6 @@
 using System.IO;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
 
 namespace DiscordBot.NetCore
 {
@@ -18,6 +13,7 @@ namespace DiscordBot.NetCore
             public string loglevel { get; set; }
             public string rakuten_applicationID { get; set; }
             public ulong channelID { get; set; }
+            public ulong guildID { get; set; }
         }
 
         private const string CONFIG_FILE_PATH = "./config.json";
